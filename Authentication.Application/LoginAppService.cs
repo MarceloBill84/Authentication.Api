@@ -31,7 +31,7 @@ namespace Authentication.Application
 			if (user.Password != loginViewModel.Password.ToHash())
 				throw new ValidationException("Usuário ou senha inválido");
 
-			var expires = DateTime.UtcNow.AddHours(1);
+			var expires = DateTime.UtcNow.AddHours(8);
 			var token = _tokenService.GenerateToken(user, expires);
 
 			return new()

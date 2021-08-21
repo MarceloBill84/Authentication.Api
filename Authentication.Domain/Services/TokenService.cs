@@ -25,8 +25,8 @@ namespace Authentication.Domain.Servicos
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var key = Encoding.ASCII.GetBytes(_applicationConfig.JwtSecret);
 
-			var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Name) };
-			claims.AddRange(user.Roles.Select(p => new Claim(ClaimTypes.Role, p.Name)));
+			var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Name.Trim()) };
+			claims.AddRange(user.Roles.Select(p => new Claim(ClaimTypes.Role, p.Name.Trim())));
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
