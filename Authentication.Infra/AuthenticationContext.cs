@@ -11,5 +11,6 @@ namespace Authentication.Infra
 		}
 		public DbSet<User> User { get; set; }
 		public DbSet<Role> Role { get; set; }
+		public DbSet<LoginRegister> LoginRegister { get; set; }
 	}
 }

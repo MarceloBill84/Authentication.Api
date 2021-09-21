@@ -13,6 +13,7 @@ namespace Authentication.CrossCutting.IoC
 		public static IServiceCollection RegisterRepositories(this IServiceCollection services)
 		{
 			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<ILoginRegisterRepository, LoginRegisterRepository>();
 			return services;
 		}
 

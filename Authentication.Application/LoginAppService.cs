@@ -13,11 +13,14 @@ namespace Authentication.Application
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly ITokenService _tokenService;
+		private readonly ILoginRegisterRepository _loginRegisterRepository;
 
 		public LoginAppService(IUserRepository userRepository,
+			ILoginRegisterRepository loginRegisterRepository,
 			ITokenService tokenService)
 		{
 			_userRepository = userRepository;
+			_loginRegisterRepository = loginRegisterRepository;
 			_tokenService = tokenService;
 		}
 
@@ -30,6 +33,8 @@ namespace Authentication.Application
 
 			if (user.Password != loginViewModel.Password.ToHash())
 				throw new ValidationException("Usuário ou senha inválido");
+
+			await _loginRegisterRepository.Add(new(user.Id, loginViewModel.Longitude, loginViewModel.Latitude));
 
 			var expires = DateTime.UtcNow.AddHours(8);
 			var token = _tokenService.GenerateToken(user, expires);
